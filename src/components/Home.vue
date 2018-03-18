@@ -68,7 +68,7 @@ body {
 }
 
 .booklist {
-  height: 500px;
+  height: 450px;
 }
 .card .title {
   font-weight: bold;

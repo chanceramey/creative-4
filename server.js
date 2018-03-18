@@ -10,7 +10,7 @@ app.use(express.static('dist'))
 
 
 let currentBook = '';
-let users = [];
+let user = '';
 
 
 function parseBook(file) {
@@ -35,22 +35,30 @@ function parseBook(file) {
 app.get('/api/book', (req, res) => {
   parseBook('20000Leagues.txt').then((data) => {
     res.send(data);
+    console.log(this.user);
   })
   
 });
 
-app.put('/api/subscribe', (req, res) => {
-  req && this.users.push(req);
-  res.send(true);
+app.post('/api/subscribe', (req, res) => {
+  this.user = req.body.email;
+  res.send({email: req.body.email});
+  console.log(this.user);
+
 });
 
-app.post('/api/unsubscribe', (req, res) => {
+app.put('/api/update', (req, res) => {
+  this.user = req.body.email;
+  res.send({email: req.body.email});
+  console.log(this.user);
 
-  res.send(item);
 });
 
-app.delete('/api/delete', (req, res) => {
-  res.sendStatus(200);
+app.delete('/api/unsubscribe', (req, res) => {
+  this.user = '';
+  res.send({email: this.user});
+  console.log(this.user);
+
 });
 
 app.listen(3000, () => console.log('Server listening on port 3000!'))

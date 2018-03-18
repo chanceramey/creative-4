@@ -7,20 +7,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    email: ''
+    book: [],
+    user: ''
   },
   getters: {
     book: (state) => {
       return state.book;
+    },
+    user: (state) => {
+      return state.user;
     }
   },
   mutations: {
-    setBook (state, file) {
+    setBook: (state, file) => {
         const thisbook = file.split(RegExp(/[ \t\r\n]+/g));
-        this.state.book = thisbook;
+        state.book = thisbook;
       },
-    setSubscribed (state, response) {
-
+      setSubscribed: (state, response) => {
+        state.user = response.data.email;       
     }
   },
   actions: {
@@ -33,21 +37,22 @@ export default new Vuex.Store({
       },
     subscribe(context, email) {
         axios.post("/api/subscribe", email).then(response => {
-          return context.dispatch('setSubscribed', response);
+        context.commit('setSubscribed', response);
       }).catch(err => {
       });
       },
-    resetPassword(context, item) {
-        axios.put("/reset" + item.id, item).then(response => {
-      return true;
-        }).catch(err => {
-        });
+    update(context, email) {
+        axios.put("/api/update", email).then(response => {
+          context.commit('setSubscribed', response);
+      }).catch(err => {
+      });
       },
     unsubscribe(context) {
         axios.delete("/api/unsubscribe").then(response => {
-      return context.dispatch('getItems');
-        }).catch(err => {
-        });
+          this.state.book = [];
+          context.commit('setSubscribed', response);
+      }).catch(err => {
+    });
       }
   }
 });

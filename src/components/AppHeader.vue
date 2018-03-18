@@ -3,6 +3,7 @@
     <ul id="menu">
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/reader">Reader</router-link></li>
+      <img src="https://png.icons8.com/ios/50/ffffff/xbox-r.png">
     </ul>	
   </nav>
 </template>
@@ -40,12 +41,19 @@
      height: 50px;
      text-align: center;
      line-height: 50px;
-     color: #666;
+     color: #aaa;
  }
+
  /*Active color*/
  li a.active {
  }
  /*Hover state for top level links*/
  li:hover a {
+     font-weight: lighter;
+     color: #eee;
+ }
+
+ #menu img {
+    float: right;
  }
 </style>

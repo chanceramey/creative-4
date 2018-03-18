@@ -69,13 +69,11 @@ export default {
     },
     play: function() {
       this.paused = false;
-      if (!this.reader){
         this.reader = window.setInterval(() => {
           this.cycle();
           this.place++;
           if (this.place === this.book.length) window.clearInterval(this.reader);
         }, (60/this.speed)*1000);
-      }
     },
     stop: function() {
       this.restart();
